@@ -1,4 +1,4 @@
-package mobmine.com.mobmineparser.Converter;
+package mobmine.com.mobmineparser.Util;
 
 import android.util.Log;
 
@@ -15,8 +15,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import mobmine.com.mobmineparser.FileManager.Reader;
-import mobmine.com.mobmineparser.Point;
+import mobmine.com.mobmineparser.Domain.Point;
+import mobmine.com.mobmineparser.Singleton.Constants;
 
 /**
  * Created by lucas on 20/04/16.
@@ -27,17 +27,16 @@ public class fromXml {
 
     public static ArrayList<Point> fromXml(String fileName){
         ArrayList<Point> points = new ArrayList<>();
-        Reader r = new Reader();
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = null;
             dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(r.openFile(fileName));
+            Document doc = dBuilder.parse(InternalStorage.openFile(Constants.XMLFOLDERNAME, fileName));
             doc.getDocumentElement().normalize();
 
             Log.d("Xml", "Root element:" + doc.getDocumentElement().getNodeName());
-            NodeList nList = doc.getElementsByTagName("furo");
-
+            NodeList nList = doc.getElementsByTagName("ponto");
+            Log.d("Xml", nList.toString());
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 Log.d("Xml", "Current Element :" + nNode.getNodeName());

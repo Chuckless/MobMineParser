@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import mobmine.com.mobmineparser.Converter.fromXml;
-import mobmine.com.mobmineparser.Converter.toXml;
-import mobmine.com.mobmineparser.FileManager.Reader;
-import mobmine.com.mobmineparser.FileManager.Writer;
+import mobmine.com.mobmineparser.Util.fromXml;
+import mobmine.com.mobmineparser.Util.toXml;
+import mobmine.com.mobmineparser.Domain.Point;
+import mobmine.com.mobmineparser.Singleton.Constants;
+import mobmine.com.mobmineparser.Util.InternalStorage;
 
 
 public class MainActivity extends Activity {
@@ -22,19 +22,15 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Constants.aplicationContext = getApplicationContext();
 
-        Reader r = new Reader();
-        Writer w = new Writer();
 
-        try {
-            ArrayList<Point> points = r.splitFile("gpsvale.txt");
+            ArrayList<Point> points = InternalStorage.readGPSFile(getApplicationContext(),
+                    Constants.GPSFOLDERNAME, "gpsvale.txt");
             String xml = toXml.toXml(points);
-            w.writeFile("XmlTeste.xml", xml);
-            points = fromXml.fromXml("XmlTeste.xml");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            InternalStorage.writeFile(getApplicationContext(), Constants.XMLFOLDERNAME,
+                    "XmlTeste.xml", xml);
+            fromXml.fromXml("XmlTeste.xml");
 
     }
 

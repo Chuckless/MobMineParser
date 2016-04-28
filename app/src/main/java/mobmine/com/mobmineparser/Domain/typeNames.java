@@ -1,4 +1,4 @@
-package mobmine.com.mobmineparser.Converter;
+package mobmine.com.mobmineparser.Domain;
 
 /**
  * Created by lucas on 25/04/16.

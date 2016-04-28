@@ -1,12 +1,11 @@
-package mobmine.com.mobmineparser.Converter;
+package mobmine.com.mobmineparser.Util;
 
-import android.content.res.Resources;
 import android.util.Log;
 
 import java.util.ArrayList;
 
-import mobmine.com.mobmineparser.Point;
-import mobmine.com.mobmineparser.R;
+import mobmine.com.mobmineparser.Domain.Point;
+import mobmine.com.mobmineparser.Domain.typeNames;
 
 /**
  * Created by lucas on 20/04/16.
@@ -23,7 +22,7 @@ public class toXml {
                 + "\t<malha " + "id=\""+ id +"\">\n";
 
         for(typeNames t : typeNames.values()){
-            temp = temp + "\t\t<" + t.toString() + ">\n";
+            temp = temp + " \t\t<" + t.toString() + ">\n";
             for(Point point : points){
                 if(t.toString().equals(point.getType())){
                     temp = temp + "\t\t\t<ponto id=\"" + point.getId() + "\" X=\"" + point.getXcord() + "\" Y=\"" + point.getYcord() + "\" Z=\"" + point.getZcord() + "\"/>\n";
